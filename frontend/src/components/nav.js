@@ -10,16 +10,10 @@ function Nav() {
 
     return (
         <nav>
-            <Link to="/" style={newStyle}>
-                <h3>Logo</h3>
-            </Link>
+            <Link to="/" style={newStyle}><h3>Logo</h3></Link>
             <ul className="nav-links">
-                <Link to="/about" style={newStyle}>
-                    <li>About</li>
-                </Link>
-                <Link to="/shop" style={newStyle}>
-                    <li>Shop</li>
-                </Link>
+                <Link to="/about" style={newStyle}><li>About</li></Link>
+                <Link to="/shop" style={newStyle}><li>Shop</li></Link>
             </ul>
         </nav>
     );
