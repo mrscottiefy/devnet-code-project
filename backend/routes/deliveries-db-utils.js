@@ -1,11 +1,10 @@
 var Sequelize = require('sequelize');
-
-var config = require("./config");
+var config = require("../config");
 var db = config.database;
 
-const sequelize = new Sequelize('admin', 'admin', 'xxxxxxxxxxx', {
-    host: 'grab-db-mysql.crgijcnz9v3i.ap-southeast-1.rds.amazonaws.com',
-    port: 3306,
+const sequelize = new Sequelize(db.dbname, db.user, db.password, {
+    host: db.host,
+    port: db.port,
     dialect: 'mysql'
 });
 

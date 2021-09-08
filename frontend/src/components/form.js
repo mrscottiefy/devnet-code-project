@@ -2,21 +2,7 @@ import React from 'react';
 import '../App.css';
 import './form.css';
 import { useForm } from "react-hook-form";
-import { uploadFile, makeFileName } from './deliveries-image-util'
-const axios = require('axios');
-
-const deliveryHost = 'http://localhost:3030';
-
-const insertDelivery = async (data) => {
-    console.log({data});
-    try {
-        axios.defaults.baseURL = deliveryHost;
-        const response = await axios.post('/insert',data);
-        console.log(response);
-    } catch (error) {
-        console.error(error);
-    }
-}
+import { uploadFile, makeFileName, insertDelivery } from '../components/utilities'
 
 function Form() {
     const { handleSubmit, register, errors } = useForm();
