@@ -174,7 +174,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/scott-phase1/dev/1629874799353-2021-08-25T06:59:59.353Z/scott-phase1.zip"
+                "S3Key": "serverless/scott-phase1/dev/1630073364666-2021-08-27T14:09:24.666Z/scott-phase1.zip"
               },
               "Handler": "app/app.handler",
               "Runtime": "nodejs14.x",
@@ -192,14 +192,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionEfRrqWl5A5VNKKi3KtVzDqjW1rwap7gq43MYFHwZ6g": {
+          "AppLambdaVersionFx5YsrE7oozrkcfo5FmcAM7hyIpnl2L1TsRBnw3oM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "8WdLVWntPClQP+18gWKj/zrGWk3SMQ/B2O/m4lS44Dc="
+              "CodeSha256": "kALL1r4OIotvXjvAapoMJMrQSeHMUs3yH2jDswNTcDU="
             }
           },
           "ApiGatewayRestApi": {
@@ -417,7 +417,7 @@
               "AppLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1629874796607": {
+          "ApiGatewayDeployment1630073361934": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -482,7 +482,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionEfRrqWl5A5VNKKi3KtVzDqjW1rwap7gq43MYFHwZ6g"
+              "Ref": "AppLambdaVersionFx5YsrE7oozrkcfo5FmcAM7hyIpnl2L1TsRBnw3oM"
             },
             "Export": {
               "Name": "sls-scott-phase1-dev-AppLambdaFunctionQualifiedArn"
@@ -664,7 +664,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionEfRrqWl5A5VNKKi3KtVzDqjW1rwap7gq43MYFHwZ6g"
+        "versionLogicalId": "AppLambdaVersionFx5YsrE7oozrkcfo5FmcAM7hyIpnl2L1TsRBnw3oM"
       }
     },
     "configValidationMode": "warn",
@@ -685,7 +685,7 @@
     "artifact": "D:\\Documents\\Workspace\\devnet-code-poc\\lambda-auth\\.serverless\\scott-phase1.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/scott-phase1/dev/1629874799353-2021-08-25T06:59:59.353Z",
+    "artifactDirectoryName": "serverless/scott-phase1/dev/1630073364666-2021-08-27T14:09:24.666Z",
     "artifact": "scott-phase1.zip"
   }
 }

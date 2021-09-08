@@ -14,6 +14,7 @@ function Nav() {
             <ul className="nav-links">
                 <Link to="/about" style={newStyle}><li>About</li></Link>
                 <Link to="/shop" style={newStyle}><li>Shop</li></Link>
+                <Link to="/form" style={newStyle}><li>Form</li></Link>
             </ul>
         </nav>
     );
