@@ -1,14 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import '../App.css';
+import './nav.css'
 import { retrieveAllDeliveries } from '../components/utilities'
 
 import { DataGrid } from '@material-ui/data-grid'
 import { makeStyles } from '@material-ui/styles';
-
-// import styled from 'styled-components'
-// import { useTable } from 'react-table'
-// import makeData from './makeData'
-
 
 function List() {
 
@@ -22,17 +18,25 @@ function List() {
     },[]);
 
     const columns = [
-        { field: 'id', headerName: 'Order ID', width: 150, headerClassName: 'super-app-theme--header', headerAlign: 'center',},
-        { field: 'email', headerName: 'Email', width: 150, editable: false,},
-        { field: 'image',headerName: 'Image', width: 150, editable: false,},
-        { field: 'createdAt',headerName: 'Order Date',type: 'number', width: 150, editable: false,},
-        { field: 'payment', headerName: 'Payment SGD', width: 170, editable: false,},
+        { field: 'id', headerName: 'Order ID', width: 200, headerClassName: 'super-app-theme--header', headerAlign: 'center',},
+        { field: 'email', headerName: 'Email', width: 300, editable: false, headerClassName: 'super-app-theme--header', headerAlign: 'center'},
+        { field: 'image', headerName: 'Image', type:'html', width: 300, editable: false, headerClassName: 'super-app-theme--header', headerAlign: 'center',
+            renderCell: (params) => (
+                <img 
+                    src={(params.value)}
+                    height="100"
+                    alt=""
+                />
+            ),
+        },
+        { field: 'createdAt', headerName: 'Order Date', type: 'number', width: 200, editable: false, headerClassName: 'super-app-theme--header', headerAlign: 'center', },
+        { field: 'payment', headerName: 'Payment SGD', width: 200, editable: false, headerClassName: 'super-app-theme--header', headerAlign: 'center'},
     ];
 
     const useStyles = makeStyles({
         root: {
             '& .super-app-theme--header': {
-                backgroundColor: 'rgba(255, 7, 0, 0.55)',
+                backgroundColor: '#00b14f;',
             },
         },
     });
@@ -44,7 +48,7 @@ function List() {
             <h1>List</h1>
             {console.log(deliveries)}
 
-            <div className={classes.root} style={{ height: 400, width: '70%' }}>
+            <div className={classes.root} style={{ height: 400, width: '100%' }}>
                 <DataGrid
                     rows={deliveries}
                     columns={columns}

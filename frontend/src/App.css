@@ -1,20 +1,3 @@
 .App {
   text-align: center;
 }
-
-nav{
-  display:flex;
-  justify-content: space-around;
-  align-items: center;
-  min-height: 10vh;
-  background: rgba(21, 53, 100, 0.808);
-  color:rgb(255, 255, 255);
-}
-
-.nav-links{
-  width:40%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  list-style: none;
-}

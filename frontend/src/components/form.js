@@ -1,58 +1,120 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './nav.css'
 import '../App.css';
 import './form.css';
 import { useForm } from "react-hook-form";
-import { uploadFile, makeFileName, insertDelivery } from '../components/utilities'
+import { insertDelivery } from './utilities'
+import 'antd/dist/antd.css';
+import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
+import {
+    Form,
+    Input,
+    Button,
+    InputNumber,
+    Upload
+} from 'antd';
 
-function Form() {
-    const { handleSubmit, register, errors } = useForm();
 
-    const onSubmit = values => {
-        const { email, payment, image } = values;
-       
+function DeliveryForm() {
+    // const { handleSubmit, register, errors } = useForm();
+    const [form] = Form.useForm();
+    const [formLayout, setFormLayout] = useState('horizontal');
+    const [componentSize, setComponentSize] = useState('default');
+    const [imageName, setImageName] = useState()
+ 
+    const onFinish = (values) => {
+      
         insertDelivery({
-            email: email,
-            payment: payment,
-            image: image[0].name
+            email: values.email,
+            payment: values.payment,
+            image: imageName
         });
-    }
-    return (
-        <div className="App">
-            <h1>Form</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input 
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    {...register("email", {
-                        required: "Required",
-                        pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: "invalid email address"
-                        }
-                    })}
-                />
-                <input 
-                    type="number"
-                    name="payment"
-                    {...register("payment",{
-                        required: "Required",
-                        min: 0,
-                        message: "invalid amount"
-                    })}
-                />
-                <input
-                    type="file"
-                    name="picture"
-                    {...register("image",{  
-                        required: "Required",
-                        message: "please upload a photo"
-                    })}
-                />
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    );
-}
+        // console.log('Success:', values);
+    };
 
-export default Form;
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    const normFile = (e) => {
+        console.log('Upload event:', e);
+
+        //Check file name & image format
+        if (e.file && e.file.name && e.file.type in ["image / jpeg", "image / png"]){
+            setImageName(e.file.name);
+        }
+
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e && e.fileList;
+    };
+
+    const onFormLayoutChange = ({ size }) => {
+        setComponentSize(size);
+    };
+    const formItemLayout =
+        formLayout === 'horizontal'
+            ? {
+                labelCol: {
+                    span: 4,
+                },
+                wrapperCol: {
+                    span: 10,
+                },
+            }
+            : null;
+    const buttonItemLayout =
+        formLayout === 'horizontal'
+            ? {
+                wrapperCol: {
+                    span: 10,
+                    offset: 4,
+                },
+            }
+            : null;
+
+    return (
+        <>
+            <h1>Delivery Form</h1>
+            <Form
+                {...formItemLayout}
+                layout={formLayout}
+                form={form}
+                initialValues={{
+                    layout: formLayout,
+                }}
+                onValuesChange={onFormLayoutChange}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+            >
+                <Form.Item label="Email" name="email">
+                    <Input type="email"/>
+                </Form.Item>             
+                <Form.Item label="Payment" name="payment">
+                    <InputNumber />
+                </Form.Item>
+                <Form.Item
+                    name="upload"
+                    label="Upload"
+                    valuePropName="fileList"
+                    getValueFromEvent={normFile}
+                    extra=""
+                >
+                    <Upload name="image" listType="picture">
+                        <Button icon={<UploadOutlined />}>Click to upload</Button>
+                    </Upload>
+                    {/* <Upload name="logo" action="/upload.do" listType="picture"> 
+                        <Button icon={<UploadOutlined />}>Click to upload</Button>
+                    </Upload> */}
+                </Form.Item>
+                <Form.Item {...buttonItemLayout}>
+                    <Button type="primary" htmlType="submit">Submit</Button>
+                </Form.Item>
+            </Form>
+        </>
+    );
+} 
+
+export default DeliveryForm;
