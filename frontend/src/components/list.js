@@ -2,39 +2,12 @@ import React, {useState, useEffect} from 'react';
 import '../App.css';
 import { retrieveAllDeliveries } from '../components/utilities'
 
-import styled from 'styled-components'
-import { useTable } from 'react-table'
+import { DataGrid } from '@material-ui/data-grid'
+import { makeStyles } from '@material-ui/styles';
+
+// import styled from 'styled-components'
+// import { useTable } from 'react-table'
 // import makeData from './makeData'
-
-
-const Styles = styled.div`
-  padding: 1rem;
-
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-`
 
 
 function List() {
@@ -48,83 +21,41 @@ function List() {
         setDeliveries(result.data);
     },[]);
 
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'Deliveries',
-                columns: [
-                    {
-                        Header: 'Email',
-                        accessor: 'email',
-                    },
-                    {
-                        Header: 'Payment',
-                        accessor: 'payment',
-                    },
-                    {
-                        Header: 'Image',
-                        accessor: 'image',
-                    },
-                    {
-                        Header: 'Timestamp',
-                        accessor: 'createdAt',
-                    },
-                ],
+    const columns = [
+        { field: 'id', headerName: 'Order ID', width: 150, headerClassName: 'super-app-theme--header', headerAlign: 'center',},
+        { field: 'email', headerName: 'Email', width: 150, editable: false,},
+        { field: 'image',headerName: 'Image', width: 150, editable: false,},
+        { field: 'createdAt',headerName: 'Order Date',type: 'number', width: 150, editable: false,},
+        { field: 'payment', headerName: 'Payment SGD', width: 170, editable: false,},
+    ];
+
+    const useStyles = makeStyles({
+        root: {
+            '& .super-app-theme--header': {
+                backgroundColor: 'rgba(255, 7, 0, 0.55)',
             },
-        ],
-        []
-    )
+        },
+    });
+    
+    const classes = useStyles();
 
     return (
         <div className="App">
             <h1>List</h1>
             {console.log(deliveries)}
-            <Styles>
-                <Table columns={columns} data={deliveries} />
-            </Styles>
+
+            <div className={classes.root} style={{ height: 400, width: '70%' }}>
+                <DataGrid
+                    rows={deliveries}
+                    columns={columns}
+                    pageSize={5}
+                    checkboxSelection
+                    disableSelectionOnClick
+                />
+            </div>
+            
         </div>
     );
-}
-
-function Table({ columns, data }) {
-    // Use the state and functions returned from useTable to build your UI
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = useTable({
-        columns,
-        data,
-    })
-
-    // Render the UI for your table
-    return (
-        <table {...getTableProps()}>
-            <thead>
-                {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
-                    prepareRow(row)
-                    return (
-                        <tr {...row.getRowProps()}>
-                            {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                            })}
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>
-    )
 }
 
 export default List;

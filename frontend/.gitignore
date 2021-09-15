@@ -13,6 +13,9 @@ config.js
 # production
 /build
 
+# backups
+.bak
+
 # misc
 .DS_Store
 .env.local
